@@ -24,4 +24,5 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json(['error'=>$e->getMessage(), 'code'=>Response::HTTP_UNAUTHORIZED,'success' => false],Response::HTTP_UNAUTHORIZED);
             }
         });
+
     })->create();

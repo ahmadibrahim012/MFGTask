@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('qr_code');
+            $table->string('qr_code')->nullable();
             $table->double('balance');
             $table->string('password');
             $table->timestamps();

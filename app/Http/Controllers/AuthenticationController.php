@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 
 class AuthenticationController extends Controller
 {
@@ -77,7 +78,13 @@ class AuthenticationController extends Controller
             $user->email=$request->email;
             $user->password=Hash::make($request->password);
             $user->balance = 0;
-            $user->qr_code = '';
+            $user->save();
+            $filename = 'qr-codes/' . time() . '.png';
+            $image = QrCode::format('png')
+                ->size(500)
+                ->generate($user->id);
+            Storage::disk('public')->put($filename, $image);
+            $user->qr_code = 'storage/'.$filename;
             $user->save();
             DB::commit();
             $data['token'] =  $user->createToken('MyApp')->plainTextToken;
@@ -91,7 +98,5 @@ class AuthenticationController extends Controller
             return $this->generalError();
         }
     }
-
-
 
 }

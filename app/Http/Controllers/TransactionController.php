@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class TransferControllerAPI extends Controller
+class TransactionController extends Controller
 {
 
     use APIResponse;
@@ -74,16 +74,21 @@ class TransferControllerAPI extends Controller
      * @return \Illuminate\Http\Response
      */
     public function history(Request $request){
+        try {
         $user= Auth::user();
-        $sentTranactions = $user->getSentTransactions;
-        $receivedTransaction = $user->getReceivedTransactions;
-
         $data = Transaction::where('sender_id',$user->id)
             ->orWhere('receiver_id',$user->id)
             ->orderBy('date')
             ->get();
         $form = TransactionResource::collection($data);
         return $this->sendResponse($form, "data retreived succesff");
+        } catch (\Exception $e) {
+            Log::error('An error occurred: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return $this->generalError();
+        }
 
     }
 
