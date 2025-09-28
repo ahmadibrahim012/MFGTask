@@ -23,7 +23,7 @@ class HomeController extends Controller
         try {
             $user= Auth::user();
             $data = new HomeResource($user);
-            return $this->sendResponse($data, "data retreived succesff");
+            return $this->sendResponse($data, "Data retrieved successfully.");
         } catch (\Exception $e) {
             Log::error('An error occurred: ' . $e->getMessage(), [
                 'exception' => $e,
