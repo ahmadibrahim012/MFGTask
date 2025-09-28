@@ -21,6 +21,7 @@ class TransactionResource extends JsonResource
             ? "You sent {$this->amount}$ to {$this->getReceiver->name} on {$this->date}"
             : "You received {$this->amount}$ from {$this->getSender->name} on {$this->date}";
 
+        $action= $isSender ? "Send" : "Receive";
         return [
             'id' => $this->id,
             'amount' => $this->amount,
@@ -28,6 +29,7 @@ class TransactionResource extends JsonResource
             'sender'=>$this->getSender->name ,
             'receiver'=>$this->getReceiver->name,
             'description' => $description,
+            'action'=>$action
         ];
     }
 }
