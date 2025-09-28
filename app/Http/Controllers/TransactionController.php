@@ -33,11 +33,11 @@ class TransactionController extends Controller
         $senderUser= Auth::user();
         $receiverUser = User::find($request->receiver_id);
         if(!$receiverUser){
-            return $this->sendError("Received not found");
+            return $this->sendError("Receiver not found");
         }
 
         if($senderUser->balance < $request->amount){
-            return $this->sendError("sender do not have enough balance");
+            return $this->sendError("The sender does not have enough balance.");
         }
 
         DB::beginTransaction();
@@ -56,7 +56,7 @@ class TransactionController extends Controller
         $senderUser->save();
         $receiverUser->save();
         DB::commit();
-        return $this->sendResponse([],"Transfer was succefulyt done");
+        return $this->sendResponse([],"The transfer was completed successfully.");
 
         } catch (\Exception $e) {
             Log::error('An error occurred: ' . $e->getMessage(), [
@@ -82,7 +82,7 @@ class TransactionController extends Controller
             ->orderBy('date')
             ->get();
         $form = TransactionResource::collection($data);
-        return $this->sendResponse($form, "data retreived succesff");
+        return $this->sendResponse($form, "Data retrieved successfully.");
         } catch (\Exception $e) {
             Log::error('An error occurred: ' . $e->getMessage(), [
                 'exception' => $e,
@@ -106,7 +106,7 @@ class TransactionController extends Controller
                 return $this->sendError("User not found");
             }
             $form = new UserResource($user);
-            return $this->sendResponse($form, "data retreived succesff");
+            return $this->sendResponse($form, "Data retrieved successfully.");
         } catch (\Exception $e) {
             Log::error('An error occurred: ' . $e->getMessage(), [
                 'exception' => $e,
