@@ -13,4 +13,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/transfer',[TransactionController::class,'transfer']);
     Route::get('/history',[TransactionController::class,'history']);
     Route::get('/home',[HomeController::class,'home']);
+    Route::get('/getUserInfo/{id}',[TransactionController::class,'userInfo']);
 });

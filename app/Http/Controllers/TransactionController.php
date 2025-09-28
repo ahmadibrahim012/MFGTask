@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TransactionResource;
+use App\Http\Resources\UserResource;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Traits\APIResponse;
@@ -91,6 +92,31 @@ class TransactionController extends Controller
         }
 
     }
+
+
+    /**
+     * User information API
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userInfo($id){
+        try {
+            $user = User::find($id);
+            if(!$user){
+                return $this->sendError("User not found");
+            }
+            $form = new UserResource($user);
+            return $this->sendResponse($form, "data retreived succesff");
+        } catch (\Exception $e) {
+            Log::error('An error occurred: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return $this->generalError();
+        }
+
+    }
+
 
 
 }
