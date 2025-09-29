@@ -36,8 +36,18 @@ http://127.0.0.1:8000/docs/api#/
 During development, endpoints were tested using Postman.  
 Screenshots are available in the `/screenshots` folder:  
 
-- image1.png → Login endpoint  
-- image2.png → Register endpoint  
+- LoginImage.png → Login endpoint  
+- RegistrationImage.png → Register endpoint  
+- HomeImage.png → Home endpoint  
+- TransferImage.png → Transfer endpoint  
+- InformationImage.png → Information endpoint  
+- TransferWithError.png → Transfer endpoint 
+- APIDocumentation.png → API Documentation
+- Database.png → Database
+- Validation.png  → Validation Parameters
+
+
+
 
 ## Authentication
 
